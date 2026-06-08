@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Desk — Gemini Trading Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- SIDEBAR -->
+  <nav class="sb">
+    <div class="sb-logo">
+      <div class="sb-icon">◈</div>
+      <div><div class="sb-brand">Paper Desk</div><div class="sb-sub">Trading Terminal</div></div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-item on">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Tableau de bord
+      </div>
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Portefeuille
+      </div>
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Marchés
+      </div>
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Risque
+      </div>
+      <div class="sb-sec">Système</div>
+      <div class="sb-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Paramètres
+      </div>
+    </div>
+    <div class="sb-bottom">
+      <div class="ai-row">
+        <div class="ai-dot" id="ai-dot"></div>
+        <span class="ai-lbl">Gemini 2.0 Flash</span>
+      </div>
+      <div class="auto-btn" id="auto-btn">
+        <span class="auto-txt" id="auto-txt">Mode Auto</span>
+        <span class="auto-pill" id="auto-pill">OFF</span>
+      </div>
+      <div class="api-row">
+        <span class="api-lbl">API</span>
+        <input class="api-inp" type="password" id="ainp" placeholder="AIzaSy…">
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE -->
+  <div class="page">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="tb-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Rechercher un titre, un secteur…
+      </div>
+      <div class="tb-sp"></div>
+      <div class="tb-info"><div class="tb-iv" id="tb-tick">Tick 0</div><div class="tb-il">Marché simulé</div></div>
+      <div class="tb-sep"></div>
+      <div class="tb-info"><div class="tb-iv" id="tb-clk">--:--:--</div><div class="tb-il">Heure locale</div></div>
+      <div class="tb-sep"></div>
+      <div class="cdw" id="cdw" style="display:none">
+        <div class="cdt"><div class="cdf" id="cdf" style="width:100%"></div></div>
+        <span class="cdn" id="cdn">9</span>s
+      </div>
+      <button class="btn-dec" id="btn-d">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5,3 19,12 5,21"/></svg>
+        Décision
+      </button>
+      <button class="btn-rst" id="btn-rst">↺ Reset</button>
+      <div class="tb-av">G</div>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-l">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Valeur totale
+        </div>
+        <div class="kpi-v" id="kv-tot">$100 000</div>
+        <div class="kpi-tr neu" id="kt-tot">— depuis le début</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-l">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          P&amp;L total
+        </div>
+        <div class="kpi-v" id="kv-pnl">$0.00</div>
+        <div class="kpi-tr neu" id="kt-pnl">+0.00%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-l">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Positions ouvertes
+        </div>
+        <div class="kpi-v" id="kv-pos">0</div>
+        <div class="kpi-tr neu" id="kt-pos">sur 50 titres disponibles</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-l">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Décisions IA
+        </div>
+        <div class="kpi-v" id="kv-dec">0</div>
+        <div class="kpi-tr neu" id="kt-dec">taux de gain —</div>
+      </div>
+    </div>
+
+    <!-- BODY GRID -->
+    <div class="body-grid">
+
+      <!-- LEFT: equity curve + market table -->
+      <div class="left">
+        <div class="eq-sec">
+          <div class="eq-top">
+            <div>
+              <div class="eq-lbl">Courbe du portefeuille</div>
+              <div class="eq-val" id="eq-val">$100 000.00</div>
+              <div class="eq-pnl" id="eq-pnl" style="color:var(--t3)">P&amp;L : —</div>
+            </div>
+            <div class="eq-badge" id="eq-badge" style="visibility:hidden">+0.00%</div>
+          </div>
+          <canvas id="eq-canvas" height="118"></canvas>
+          <div class="eq-foot"><span id="eqf-l">Tick 0</span><span id="eqf-r">—</span></div>
+        </div>
+        <div class="mkt-sec">
+          <div class="mkt-bar">
+            <span class="mkt-ttl">Marchés — 50 titres fictifs</span>
+            <div class="mkt-chips">
+              <span class="mkt-chip">↑ <b id="mup">0</b></span>
+              <span class="mkt-chip">↓ <b id="mdn">0</b></span>
+              <span class="mkt-chip">Tick <b id="mtick">0</b></span>
+            </div>
+          </div>
+          <div class="mkt-cols">
+            <div class="mkt-ch">Symb.</div>
+            <div class="mkt-ch">Société</div>
+            <div class="mkt-ch" style="text-align:right">Prix</div>
+            <div class="mkt-ch" style="text-align:right">Δ1t</div>
+            <div class="mkt-ch"></div>
+            <div class="mkt-ch" style="text-align:center">Pos.</div>
+          </div>
+          <div class="mkt-body" id="mkt-body"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: portfolio + allocation + risk + journal -->
+      <div class="right">
+        <div class="sh" style="border-bottom:1px solid var(--bdr)">
+          <span class="sh-t">Portefeuille</span>
+          <span class="sh-m" id="hold-meta">cash uniquement</span>
+        </div>
+        <div class="hold-row" id="hold-row"></div>
+
+        <div class="alloc-sec">
+          <div class="sh" style="padding:0;border:0;margin-bottom:0">
+            <span class="sh-t">Allocation sectorielle</span>
+            <span class="sh-m" id="alloc-meta">—</span>
+          </div>
+          <div class="alloc-list" id="alloc-list"></div>
+        </div>
+
+        <div class="risk-sec">
+          <div class="sh" style="padding:0;border:0">
+            <span class="sh-t">Métriques de risque</span>
+          </div>
+          <div class="risk-grid">
+            <div class="ri"><div class="ri-l">Taux de gain</div><div class="ri-v" id="r-win">—</div></div>
+            <div class="ri"><div class="ri-l">Drawdown max</div><div class="ri-v" id="r-dd">—</div></div>
+            <div class="ri"><div class="ri-l">Trades clôturés</div><div class="ri-v" id="r-tr">0</div></div>
+            <div class="ri"><div class="ri-l">Cash / Port.</div><div class="ri-v" id="r-cash">100%</div></div>
+          </div>
+        </div>
+
+        <div class="read-sec">
+          <div class="read-lbl">Analyse Gemini</div>
+          <div class="rt idle" id="rtext">En attente de la première décision…</div>
+        </div>
+
+        <div class="jrnl">
+          <div class="sh">
+            <span class="sh-t">Journal des trades</span>
+            <span class="sh-m" id="dec-meta">0 décision</span>
+          </div>
+          <div class="jbody" id="jbody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
